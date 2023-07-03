@@ -125,7 +125,7 @@ def user_suggestions(request, id):
 def addposts(request, id):
     print(request.user.id, 'llllllll')
     user = User.objects.filter(id=id).first()
-    print(id, 'hhh')
+    # print(id, 'hhh') 
     content = request.POST['content']
     image = request.FILES.get('image')
     video = request.FILES.get('video')
@@ -140,8 +140,9 @@ def addposts(request, id):
             content=content,
             user=user
         )
-        data = {'success': 'success'}
-        return Response(data, status=status.HTTP_200_OK)
+        # data = {'success': 'success'}
+        # return Response(data, status=status.HTTP_200_OK)
+        
 
     elif video:
         upload_result = cloudinary.uploader.upload(
@@ -155,8 +156,8 @@ def addposts(request, id):
             content=content,
             user=user
         )
-        data = {'success': 'success'}
-        return Response(data, status=status.HTTP_200_OK)
+        # data = {'success': 'success'}
+        # return Response(data, status=status.HTTP_200_OK)
 
 
     elif content:
@@ -164,28 +165,56 @@ def addposts(request, id):
             content=content,
             user=user
         )
-        data = {'success': 'success'}
-        return Response(data, status=status.HTTP_200_OK)
+        # data = {'success': 'success'}
+        # return Response(data, status=status.HTTP_200_OK)
 
     else:
         data = {'error': 'missing data'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
-
+    following_users = user.following.values_list("following_id", flat=True)
+    reported_posts = Report.objects.filter(approved=True).values_list(
+        "post_id", flat=True
+    )
+    posts = (
+        Post.objects.filter(Q(user_id__in=following_users) | Q(user=user))
+        .exclude(id__in=reported_posts)
+        .order_by("-created_at")
+    )
+    postSer = PostSerializer(posts, many=True)  # Serialize the queryset as a list
+    return Response(
+        {"success": "success", "data": postSer.data}, status=status.HTTP_200_OK
+    )
 
 @api_view(['DELETE'])
 @csrf_exempt
-def deletePost(request, id):
+def deletePost(request, id,user_id):
     post = Post.objects.filter(id=id).first()
+    user = User.objects.filter(id=user_id).first()
+
     if post:
         post.delete()
         posts = Post.objects.all().order_by('-created_at')
-        data = [{"id": p.id, "content": p.content,
-                 "created_at": p.created_at} for p in posts]
-        # print(data,'llllll')
-        return Response(data, status=status.HTTP_200_OK)
+        # data = [{"id": p.id, "content": p.content,
+        #          "created_at": p.created_at} for p in posts]
+        # # print(data,'llllll')
+        # return Response(data, status=status.HTTP_200_OK)
+        following_users = user.following.values_list("following_id", flat=True)
+        reported_posts = Report.objects.filter(approved=True).values_list(
+        "post_id", flat=True
+        )
+        posts = (
+        Post.objects.filter(Q(user_id__in=following_users) | Q(user=user))
+        .exclude(id__in=reported_posts)
+        .order_by("-created_at")
+        )
+        postSer = PostSerializer(posts, many=True)  # Serialize the queryset as a list
+        return Response(
+        {"success": "success", "data": postSer.data}, status=status.HTTP_200_OK
+        )
     else:
         data = {'error': 'post not found'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    
 
 
 # @api_view(['GET'])
@@ -203,21 +232,11 @@ def deletePost(request, id):
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 @api_view(['GET'])
-def getPosts(request, user_id, page):
+def getPosts(request, user_id):
     reported_posts = Report.objects.filter(
         approved=True).values_list('post_id', flat=True)
     posts = Post.objects.exclude(id__in=reported_posts).exclude(
         user_id=user_id).order_by('-created_at')
-
-    # Paginate the posts
-    paginator = Paginator(posts, 10)  # Assuming 10 posts per page
-    posts = paginator.page(page)
-    # try:
-    #     posts = paginator.page(page)
-    # except PageNotAnInteger:
-    #     posts = paginator.page(1)
-    # except EmptyPage:
-    #     return Response({'message': 'No more posts'}, status=status.HTTP_204_NO_CONTENT)  # Return 204 status code
     postSer = PostSerializer(posts, many=True)
     return Response({'data': postSer.data}, status=status.HTTP_200_OK)
 

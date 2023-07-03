@@ -60,9 +60,10 @@
 
 
 from channels.generic.websocket import WebsocketConsumer
-from .models import Message   
+from .models import Message,Room 
 from asgiref.sync import async_to_sync
-from .models import *
+from user.models import User
+
 import json
 
 class ChatConsumer(WebsocketConsumer):

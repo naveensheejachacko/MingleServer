@@ -30,8 +30,8 @@ SECRET_KEY = 'django-insecure-u9c4cqqi678z7np7@v+fy!c-too+gieg%h4e@y3lb+hj)d)kp^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -109,30 +109,30 @@ CHANNEL_LAYERS = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.postgresql_psycopg2',
-'NAME': 'myproject',
-'USER': 'myprojectuser',
-'PASSWORD': 'password',
-'HOST': 'localhost',
-'PORT': '',
-}
-}
-
-
-
-
-
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mingle',
-#         'USER':'postgres',
-#         'PASSWORD':'123'
-#     }
+# 'default': {
+# 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+# 'NAME': 'myproject',
+# 'USER': 'myprojectuser',
+# 'PASSWORD': 'password',
+# 'HOST': 'localhost',
+# 'PORT': '',
 # }
+# }
+
+
+
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mingle',
+        'USER':'postgres',
+        'PASSWORD':'123'
+    }
+}
 
 
 
