@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-u9c4cqqi678z7np7@v+fy!c-too+gieg%h4e@y3lb+hj)d)kp^
 DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['mingle.fun']
 
 
 # Application definition
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'adminapp',
     'posts',
     'chat',
-    # 'channels',
+    'channels',
     'rest_framework',
     'corsheaders',
     'cloudinary',

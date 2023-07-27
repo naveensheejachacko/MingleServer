@@ -243,7 +243,7 @@ class googleLogin(APIView):
                 # print(upload_result, 'lllllllllllllll')
                 cover_picture = upload_result['secure_url']
 
-                profile_picture = "https://res.cloudinary.com/dtnbd0res/image/upload/v1684419108/profile_picture/sywfducryop3fhv0cxd8.png"
+                profile_picture = "https://res.cloudinary.com/dtnbd0res/image/upload/v1690430945/profile_picture/hr23tlaimummrzwbdo2u.png"
                 upload_result = cloudinary.uploader.upload(
                     profile_picture,
                     folder='profile_picture'
