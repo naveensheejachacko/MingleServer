@@ -28,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u9c4cqqi678z7np7@v+fy!c-too+gieg%h4e@y3lb+hj)d)kp^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['mingle.fun']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
