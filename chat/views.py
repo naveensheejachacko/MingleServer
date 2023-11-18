@@ -15,7 +15,6 @@ from.serializers import RoomSerializers,MessageSerializer
 
 @api_view(['GET'])
 def chatlists(request,id):
-    print('hai inside chat app')
     chats = FollowList.objects.filter(follower = id)
     print(chats)
     seriali = FollowlistSerializer(chats,many = True)
@@ -43,7 +42,6 @@ def create_or_find_room(request, id1, id2):
 
 @api_view(['GET'])
 def getMessages(request,id):
-    print('jjaij')
     if request.method == 'GET':
         msg = Message.objects.filter(room=id)
         serializer = MessageSerializer(msg, many=True)

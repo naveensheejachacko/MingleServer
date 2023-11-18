@@ -66,7 +66,6 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', 
-    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -109,30 +108,30 @@ CHANNEL_LAYERS = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.postgresql_psycopg2',
-'NAME': 'myproject',
-'USER': 'myprojectuser',
-'PASSWORD': 'password',
-'HOST': 'localhost',
-'PORT': '',
-}
-}
-
-
-
-
-
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mingle',
-#         'USER':'postgres',
-#         'PASSWORD':'123'
-#     }
+# 'default': {
+# 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+# 'NAME': 'myproject',
+# 'USER': 'myprojectuser',
+# 'PASSWORD': 'password',
+# 'HOST': 'localhost',
+# 'PORT': '',
 # }
+# }
+
+
+
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mingle',
+        'USER':'postgres',
+        'PASSWORD':'123'
+    }
+}
 
 
 
@@ -197,6 +196,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW=True
 CORS_ALLOW_CREDENTIALS=True
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
